@@ -11,6 +11,8 @@ provider "aws" {
   region = var.region
 }
 
+data "aws_caller_identity" "current" {}
+
 # ── DynamoDB ────────────────────────────────────────────────────────────────
 
 resource "aws_dynamodb_table" "users" {
@@ -44,7 +46,7 @@ resource "aws_lambda_function" "crud_user" {
   function_name    = "crud-user"
   runtime          = "python3.12"
   handler          = "handler.handler"
-  role             = var.lab_role_arn
+  role             = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/LabRole"
   filename         = data.archive_file.crud_user.output_path
   source_code_hash = data.archive_file.crud_user.output_base64sha256
 
@@ -61,7 +63,7 @@ resource "aws_lambda_function" "simple_authorizer" {
   function_name    = "simple-authorizer"
   runtime          = "python3.12"
   handler          = "handler.handler"
-  role             = var.lab_role_arn
+  role             = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/LabRole"
   filename         = data.archive_file.simple_authorizer.output_path
   source_code_hash = data.archive_file.simple_authorizer.output_base64sha256
 
