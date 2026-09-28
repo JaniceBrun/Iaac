@@ -1,8 +1,0 @@
-# Variabili locali con dati sensibili
-terraform.tfvars
-*.tfvars
-
-# Stato e cache Terraform
-.terraform/
-terraform.tfstate
-terraform.tfstate.backup
