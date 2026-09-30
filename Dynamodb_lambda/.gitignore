@@ -1,0 +1,9 @@
+.terraform/
+.terraform.lock.hcl
+.build/
+*.zip
+terraform.tfstate
+terraform.tfstate.*
+*.tfvars
+*.tfvars.json
+orders.json
